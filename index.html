@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Contato</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, textarea, button {
+      width: 80%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- https://dashboard.emailjs.com/sign-in -->
+  <form id="contact-form">
+    <h2>Contato</h2>
+    <input type="text" id="nome" name="nome" placeholder="Seu Nome" required>
+    <input type="email" id="email" name="email" placeholder="Seu Email" required>
+    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    // Inicializar EmailJS
+    emailjs.init("uUHl_j4V-KkDNd4MT");
+
+    // Manipular envio do formulário
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Coleta os dados do formulário
+      const templateParams = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        mensagem: document.getElementById("mensagem").value,
+      };
+
+      // Envia o e-mail
+      emailjs.send("service_fzoyc8f", "template_fbuy95r", templateParams)
+        .then(function(response) {
+          alert("Mensagem enviada com sucesso!");
+        }, function(error) {
+          alert("Erro ao enviar mensagem: " + JSON.stringify(error));
+        });
+    });
+  </script>
+</body>
+</html>
